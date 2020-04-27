@@ -50,11 +50,15 @@
 
 #include <QApplication>
 #include <QSurfaceFormat>
+#include <SDL2/SDL.h>
 
 #include "mainwidget.h"
 
 int main(int argc, char **argv)
 {
+    if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 )
+        printf("%s - SDL could not initialize! SDL Error: %s\n", __FUNCTION__, SDL_GetError());
+
     QApplication app(argc, argv);
 
     // Set up the default OpenGL surface format.

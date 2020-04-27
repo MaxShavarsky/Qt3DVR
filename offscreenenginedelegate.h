@@ -20,7 +20,7 @@ private:
     QLabel *label;
     Qt3DRender::QRenderCaptureReply *reply;
 
-private slots:
+private Q_SLOTS:
     void onImageRendered();
 
 private:

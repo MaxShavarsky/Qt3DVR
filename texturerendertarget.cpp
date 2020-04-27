@@ -14,7 +14,7 @@ TextureRenderTarget::TextureRenderTarget(Qt3DCore::QNode *parent,
     output->setAttachmentPoint(attatchmentPoint);
 
     // Create a texture to render into.
-    texture = new Qt3DRender::QTexture2D(output);
+    texture = new Qt3DRender::QSharedGLTexture(output);
     texture->setSize(size.width(), size.height());
     texture->setFormat(Qt3DRender::QAbstractTexture::RGB8_UNorm);
     texture->setMinificationFilter(Qt3DRender::QAbstractTexture::Linear);
@@ -26,7 +26,7 @@ TextureRenderTarget::TextureRenderTarget(Qt3DCore::QNode *parent,
         
     depthTextureOutput = new Qt3DRender::QRenderTargetOutput(this);
     depthTextureOutput->setAttachmentPoint(Qt3DRender::QRenderTargetOutput::Depth);
-    depthTexture = new Qt3DRender::QTexture2D(depthTextureOutput);
+    depthTexture = new Qt3DRender::QSharedGLTexture(depthTextureOutput);
     depthTexture->setSize(size.width(), size.height());
     depthTexture->setFormat(Qt3DRender::QAbstractTexture::DepthFormat);
     depthTexture->setMinificationFilter(Qt3DRender::QAbstractTexture::Linear);
@@ -38,7 +38,7 @@ TextureRenderTarget::TextureRenderTarget(Qt3DCore::QNode *parent,
     addOutput(depthTextureOutput);
 }
 
-Qt3DRender::QTexture2D* TextureRenderTarget::getTexture()
+Qt3DRender::QSharedGLTexture* TextureRenderTarget::getTexture()
 {
     return texture;
 }

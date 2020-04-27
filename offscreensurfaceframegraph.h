@@ -24,6 +24,7 @@ public:
     void setSize(const QSize &size);
     Qt3DCore::QNode *getRenderTargetSelector();
 
+    TextureRenderTarget* getTextureTarget();
 private:
     TextureRenderTarget *textureTarget;
     QOffscreenSurface *offscreenSurface;

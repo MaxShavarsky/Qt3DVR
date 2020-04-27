@@ -37,6 +37,10 @@
 
 #include <Qt3DExtras/qt3dwindow.h>
 #include <Qt3DExtras/qfirstpersoncameracontroller.h>
+#include <Qt3DLogic/QFrameAction>
+
+#include <openvr.h>
+#include "vive.hh"
 
 // Main widget used to display the example content.
 // Setup and teardown occurs within this class rather than in main(),
@@ -48,10 +52,17 @@ public:
     explicit MainWidget(QWidget *parent = nullptr);
     virtual ~MainWidget();
 
+private Q_SLOTS:
+    void updateFrame();
+
 private:
+    Vive vive_;
+    QVector3D offset_;
+
     OffscreenEngine* offscreenEngine;
     OffscreenEngineDelegate* offscreenEngineDelegate;
     SceneModifier* modifier;
+    Qt3DLogic::QFrameAction *frameAction;
 };
 
 #endif // MAINWIDGET_H

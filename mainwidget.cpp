@@ -1,12 +1,19 @@
 #include "mainwidget.h"
+#include "vive_conversions.hh"
+#include <iostream>
 
-MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
+MainWidget::MainWidget(QWidget *parent) : QWidget(parent), offset_(QVector3D())
 {
     setWindowTitle(QStringLiteral("Basic shapes"));
 
     // The label which will act as the 3D viewport.
     // Frames that are rendered by the offscreen engine will be
     // displayed in this label as QImages.
+    if (!vive_.Init("/home/maxshavarsky/Development/Qt/QtExamples/Qt3D-OffscreenRenderer/media/actions.json")) {
+        qCritical() << "Failed to initialize Vive";
+        return;
+    }
+
     QLabel *graphicsLabel = new QLabel();
     graphicsLabel->setGeometry(QRect(0, 0, 1200, 800));
     graphicsLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -20,6 +27,10 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
 
     // Root entity in the 3D scene.
     Qt3DCore::QEntity *rootEntity = new Qt3DCore::QEntity();
+
+    frameAction = new Qt3DLogic::QFrameAction;
+    rootEntity->addComponent(frameAction);
+    Qt3DLogic::QFrameAction::connect( frameAction, &Qt3DLogic::QFrameAction::triggered, this, [&](){std::cout << "update" << std::endl;updateFrame();});
 
     // Set up a camera to point at the shapes.
     Qt3DRender::QCamera *cameraEntity = new Qt3DRender::QCamera(rootEntity);
@@ -114,6 +125,21 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
     cuboidCB->setChecked(true);
     planeCB->setChecked(true);
     sphereCB->setChecked(true);
+}
+
+void MainWidget::updateFrame() {
+    if (!vive_.ReadAll())
+        qCritical() << "VIVE" << ": Failed to get all Vive data";
+
+    Vive::HMD viveHMD{};
+    if (vive_.ReadHMD(viveHMD)) {
+        auto hmd = Convert(viveHMD);
+        hmd.Pose.Position += offset_;
+    }
+
+    auto textureId = offscreenEngine->getOffscreenFrameGraph()->getTextureTarget()->getTexture()->textureId();
+    vive_.RegisterGLTextures((void *) textureId, (void *) textureId);
+    vive_.SubmitGLTextures();
 }
 
 MainWidget::~MainWidget()

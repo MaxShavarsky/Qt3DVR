@@ -72,3 +72,7 @@ Qt3DCore::QNode *OffscreenSurfaceFrameGraph::getRenderTargetSelector()
 {
     return renderTargetSelector;
 }
+
+TextureRenderTarget* OffscreenSurfaceFrameGraph::getTextureTarget() {
+    return textureTarget;
+}

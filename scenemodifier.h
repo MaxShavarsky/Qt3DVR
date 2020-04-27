@@ -73,8 +73,8 @@ class SceneModifier : public QObject
 public:
     explicit SceneModifier(Qt3DCore::QEntity *rootEntity);
 
-public slots:
-    // The UI check boxes connect to these slots.
+public Q_SLOTS:
+    // The UI check boxes connect to these Q_SLOTS.
     void enableTorus(bool enabled);
     void enableCone(bool enabled);
     void enableCylinder(bool enabled);

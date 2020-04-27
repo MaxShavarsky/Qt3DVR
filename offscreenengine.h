@@ -33,7 +33,12 @@ private:
     Qt3DLogic::QLogicAspect *logicAspect;               // The logic aspect, which runs jobs to do with synchronising frames.
     Qt3DRender::QRenderSettings *renderSettings;        // The render settings, which control the general rendering behaviour.
     Qt3DRender::QRenderCapture *renderCapture;          // The render capture node, which is appended to the frame graph.
-    OffscreenSurfaceFrameGraph *offscreenFrameGraph;    // The frame graph, which allows rendering to an offscreen surface.
+    OffscreenSurfaceFrameGraph *offscreenFrameGraph;
+public:
+    OffscreenSurfaceFrameGraph *getOffscreenFrameGraph() const;
+
+private:
+    // The frame graph, which allows rendering to an offscreen surface.
     Qt3DCore::QNode *sceneRoot;                         // The scene root, which becomes a child of the engine's root entity.
 };
 
