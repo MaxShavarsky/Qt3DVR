@@ -137,7 +137,7 @@ void MainWidget::updateFrame() {
         hmd.Pose.Position += offset_;
     }
 
-    auto textureId = offscreenEngine->getOffscreenFrameGraph()->getTextureTarget()->getTexture()->textureId();
+    auto textureId = offscreenEngine->getOffscreenFrameGraph()->getTextureTarget()->getTexture();
     vive_.RegisterGLTextures((void *) textureId, (void *) textureId);
     vive_.SubmitGLTextures();
 }

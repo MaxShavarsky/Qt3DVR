@@ -19,7 +19,7 @@ class OffscreenSurfaceFrameGraph : public Qt3DRender::QRenderSurfaceSelector
 {
     Q_OBJECT
 public:
-    OffscreenSurfaceFrameGraph(Qt3DCore::QNode* parent = nullptr, Qt3DRender::QCamera *camera = nullptr, const QSize &size = QSize(500, 500));
+    OffscreenSurfaceFrameGraph(Qt3DCore::QNode* parent = nullptr, Qt3DRender::QCamera *camera = nullptr, const QSize &size = QSize(1512, 1680));
 
     void setSize(const QSize &size);
     Qt3DCore::QNode *getRenderTargetSelector();
