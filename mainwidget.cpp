@@ -137,8 +137,12 @@ void MainWidget::updateFrame() {
         hmd.Pose.Position += offset_;
     }
 
-    auto textureId = offscreenEngine->getOffscreenFrameGraph()->getTextureTarget()->getTexture();
-    vive_.RegisterGLTextures((void *) textureId, (void *) textureId);
+    auto *texture = offscreenEngine->getOffscreenFrameGraph()->getTextureTarget()->getTexture();
+    std::cout << "texture->handleType():" << texture->handleType() << std::endl;
+    std::cout << "texture->handle().toInt():" << texture->handle().toUInt() << std::endl;
+
+    if (texture->handleType() == 0 || texture->handle().toInt() == 0)
+        vive_.RegisterGLTextures((void *) texture->handle().toUInt(), (void *) texture->handle().toUInt());
     vive_.SubmitGLTextures();
 }
 

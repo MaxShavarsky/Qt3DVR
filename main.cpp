@@ -58,14 +58,17 @@ int main(int argc, char **argv)
 {
     if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 )
         printf("%s - SDL could not initialize! SDL Error: %s\n", __FUNCTION__, SDL_GetError());
-
-    QApplication app(argc, argv);
-
-    // Set up the default OpenGL surface format.
     QSurfaceFormat format;
     format.setDepthBufferSize(32);
     format.setSamples(8);
+    format.setRenderableType(QSurfaceFormat::OpenGL);
     QSurfaceFormat::setDefaultFormat(format);
+
+    QApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    QApplication app(argc, argv);
+
+    // Set up the default OpenGL surface format.
+
 
     // Create our top-level widget.
     MainWidget widget;
