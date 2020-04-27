@@ -9,11 +9,15 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(CMAKE_PREFIX_PATH ~/Development/deps/Qt/5.14.2/gcc_64/lib/cmake)
+
+find_package(OpenGL REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS 3DQuick Core Gui Widgets 3DCore 3DExtras 3DRender 3DInput 3DLogic Qml)
+find_package(GLEW REQUIRED)
 find_package(SDL2 REQUIRED)
 
 include_directories(include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${GLEW_INCLUDE_DIRS})
 
 set(OPENVR_DIR "~/Development/deps/openvr")
 include_directories("${OPENVR_DIR}/headers")
@@ -57,6 +61,9 @@ set(LIBS
         Qt5::Qml
         ${OPENVR_DIR}/lib/linux64/libopenvr_api.so
         ${SDL2_LIBRARIES}
+        ${GLEW_LIBRARIES}
+        ${OPENGL_INCLUDE_DIRS}
+        ${OPENGL_gl_LIBRARY}
         )
 
 add_library(qt3d_vive_plugin ${SRC} ${MOC_FILES} ${UIC_FILES})

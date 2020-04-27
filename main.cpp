@@ -61,7 +61,7 @@ int main(int argc, char **argv)
         printf("%s - SDL could not initialize! SDL Error: %s\n", __FUNCTION__, SDL_GetError());
 
     Vive vive;
-    if (!vive.Init("/home/pavlo/Development/deps/Qt/Qt3DVR/media/actions.json")) {
+    if (!vive.Init("/home/maxshavarsky/Development/deps/Qt/Qt3DVR/media/actions.json")) {
       qCritical() << "Failed to initialize Vive";
     }
 

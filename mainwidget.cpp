@@ -135,9 +135,9 @@ void MainWidget::updateFrame() {
     auto *texture = offscreenEngine->getOffscreenFrameGraph()->getTextureTarget()->getTexture();
     std::cout << "texture->handleType():" << texture->handleType() << std::endl;
     std::cout << "texture->handle().toInt():" << texture->handle().toUInt() << std::endl;
+    std::cout << "offscreenEngineDelegate->GLID():" << offscreenEngineDelegate->GLID() << std::endl;
 
-    //if (texture->handleType() == 0 || texture->handle().toInt() == 0)
-    vive_.RegisterGLTextures((void *) texture->handle().toUInt(), (void *) texture->handle().toUInt());
+    vive_.RegisterGLTextures((void *) offscreenEngineDelegate->GLID(), (void *) offscreenEngineDelegate->GLID());
     vive_.SubmitGLTextures();
 }
 
