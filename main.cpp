@@ -51,13 +51,20 @@
 #include <QApplication>
 #include <QSurfaceFormat>
 #include <SDL2/SDL.h>
-
+#include <openvr.h>
+#include "vive.hh"
 #include "mainwidget.h"
 
 int main(int argc, char **argv)
 {
     if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 )
         printf("%s - SDL could not initialize! SDL Error: %s\n", __FUNCTION__, SDL_GetError());
+
+    Vive vive;
+    if (!vive.Init("/home/pavlo/Development/deps/Qt/Qt3DVR/media/actions.json")) {
+      qCritical() << "Failed to initialize Vive";
+    }
+
     QSurfaceFormat format;
     format.setDepthBufferSize(32);
     format.setSamples(8);
@@ -71,7 +78,7 @@ int main(int argc, char **argv)
 
 
     // Create our top-level widget.
-    MainWidget widget;
+    MainWidget widget(nullptr, &vive);
     widget.show();
     widget.resize(1200, 800);
 

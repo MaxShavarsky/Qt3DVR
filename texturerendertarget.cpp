@@ -35,12 +35,14 @@ TextureRenderTarget::TextureRenderTarget(Qt3DCore::QNode *parent,
     depthTexture->setComparisonMode(Qt3DRender::QAbstractTexture::CompareRefToTexture);
     // Hook up the depth texture
     depthTextureOutput->setTexture(depthTexture);
+    auto idType = depthTexture->handleType();
+    auto id = depthTexture->handle().toInt();
     addOutput(depthTextureOutput);
 }
 
 Qt3DRender::QTexture2D* TextureRenderTarget::getTexture()
 {
-    return texture;
+    return depthTexture;
 }
 
 void TextureRenderTarget::setSize(const QSize &size)

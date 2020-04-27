@@ -2,18 +2,13 @@
 #include "vive_conversions.hh"
 #include <iostream>
 
-MainWidget::MainWidget(QWidget *parent) : QWidget(parent), offset_(QVector3D())
+MainWidget::MainWidget(QWidget *parent, Vive* vive) : vive_(*vive), QWidget(parent), offset_(QVector3D())
 {
     setWindowTitle(QStringLiteral("Basic shapes"));
 
     // The label which will act as the 3D viewport.
     // Frames that are rendered by the offscreen engine will be
     // displayed in this label as QImages.
-    if (!vive_.Init("/home/maxshavarsky/Development/Qt/QtExamples/Qt3D-OffscreenRenderer/media/actions.json")) {
-        qCritical() << "Failed to initialize Vive";
-        return;
-    }
-
     QLabel *graphicsLabel = new QLabel();
     graphicsLabel->setGeometry(QRect(0, 0, 1200, 800));
     graphicsLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -141,8 +136,8 @@ void MainWidget::updateFrame() {
     std::cout << "texture->handleType():" << texture->handleType() << std::endl;
     std::cout << "texture->handle().toInt():" << texture->handle().toUInt() << std::endl;
 
-    if (texture->handleType() == 0 || texture->handle().toInt() == 0)
-        vive_.RegisterGLTextures((void *) texture->handle().toUInt(), (void *) texture->handle().toUInt());
+    //if (texture->handleType() == 0 || texture->handle().toInt() == 0)
+    vive_.RegisterGLTextures((void *) texture->handle().toUInt(), (void *) texture->handle().toUInt());
     vive_.SubmitGLTextures();
 }
 

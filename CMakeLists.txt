@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_PREFIX_PATH /home/maxshavarsky/Development/Qt/Qt5.14/5.14.2/gcc_64/lib/cmake)
+set(CMAKE_PREFIX_PATH ~/Development/deps/Qt/5.14.2/gcc_64/lib/cmake)
 find_package(Qt5 REQUIRED COMPONENTS 3DQuick Core Gui Widgets 3DCore 3DExtras 3DRender 3DInput 3DLogic Qml)
 find_package(SDL2 REQUIRED)
 
