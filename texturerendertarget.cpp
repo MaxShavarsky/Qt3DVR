@@ -31,7 +31,7 @@ TextureRenderTarget::TextureRenderTarget(Qt3DCore::QNode *parent,
     depthTexture->setFormat(Qt3DRender::QAbstractTexture::DepthFormat);
     depthTexture->setMinificationFilter(Qt3DRender::QAbstractTexture::Linear);
     depthTexture->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
-    depthTexture->setComparisonFunction(Qt3DRender::QAbstractTexture::CompareLessEqual);
+    //depthTexture->setComparisonFunction(Qt3DRender::QAbstractTexture::CompareLessEqual);
     depthTexture->setComparisonMode(Qt3DRender::QAbstractTexture::CompareRefToTexture);
     // Hook up the depth texture
     depthTextureOutput->setTexture(depthTexture);
