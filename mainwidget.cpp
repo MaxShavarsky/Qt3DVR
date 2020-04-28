@@ -137,7 +137,14 @@ void MainWidget::updateFrame() {
     std::cout << "texture->handle().toInt():" << texture->handle().toUInt() << std::endl;
     std::cout << "offscreenEngineDelegate->GLID():" << offscreenEngineDelegate->GLID() << std::endl;
 
-    vive_.RegisterGLTextures((void *) offscreenEngineDelegate->GLID(), (void *) offscreenEngineDelegate->GLID());
+    auto *text = new QOpenGLTexture(QOpenGLTexture::Target2D);
+    text->create();
+    text->setMinMagFilters(QOpenGLTexture::Linear, QOpenGLTexture::Linear);
+    text->setSize(1512, 1680, 1);
+    text->setFormat(QOpenGLTexture::RGBA8_UNorm);
+    text->allocateStorage();
+
+    vive_.RegisterGLTextures((void *) text->textureId(), (void *) text->textureId());
     vive_.SubmitGLTextures();
 }
 

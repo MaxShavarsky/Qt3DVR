@@ -42,7 +42,7 @@ TextureRenderTarget::TextureRenderTarget(Qt3DCore::QNode *parent,
 
 Qt3DRender::QTexture2D* TextureRenderTarget::getTexture()
 {
-    return depthTexture;
+    return texture;
 }
 
 void TextureRenderTarget::setSize(const QSize &size)

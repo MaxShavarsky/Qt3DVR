@@ -34,6 +34,8 @@ void OffscreenEngineDelegate::onImageRendered()
     requestRenderCapture();
 }
 
+
+
 GLuint OffscreenEngineDelegate::GLID() {
     return gluid;
 }

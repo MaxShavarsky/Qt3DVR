@@ -52,6 +52,7 @@
 #include <QSurfaceFormat>
 #include <SDL2/SDL.h>
 #include <openvr.h>
+#include <QtGui/QOpenGLContext>
 #include "vive.hh"
 #include "mainwidget.h"
 
@@ -61,13 +62,13 @@ int main(int argc, char **argv)
         printf("%s - SDL could not initialize! SDL Error: %s\n", __FUNCTION__, SDL_GetError());
 
     Vive vive;
-    if (!vive.Init("/home/maxshavarsky/Development/deps/Qt/Qt3DVR/media/actions.json")) {
+    if (!vive.Init("/home/pavlo/Development/Qt3DVR/media/actions.json")) {
       qCritical() << "Failed to initialize Vive";
     }
 
     QSurfaceFormat format;
-    format.setDepthBufferSize(32);
-    format.setSamples(8);
+    format.setMajorVersion(3);
+    format.setMinorVersion(3);
     format.setRenderableType(QSurfaceFormat::OpenGL);
     QSurfaceFormat::setDefaultFormat(format);
 
@@ -75,13 +76,21 @@ int main(int argc, char **argv)
     QApplication app(argc, argv);
 
     // Set up the default OpenGL surface format.
-
+    QOpenGLContext context;
+    QOffscreenSurface surface;//to vr
+    context.setShareContext(&context);
+    surface.create();
+    context.setFormat(format);
+    if (!context.create())
+      qFatal("Cannot create the requested OpenGL context!");
+    context.makeCurrent(&surface);
 
     // Create our top-level widget.
     MainWidget widget(nullptr, &vive);
     widget.show();
     widget.resize(1200, 800);
 
+    //text->setData(QOpenGLTexture::Red, QOpenGLTexture::UInt8, (void *) texture->handle().toUInt());
     // Run the application.
     return app.exec();
 }

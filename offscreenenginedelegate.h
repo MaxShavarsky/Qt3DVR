@@ -20,6 +20,7 @@ public:
     GLuint loadTexturewithSDL(const QImage &sourceImage, GLenum texture_format);
     SDL_Surface* QImage_toSDLSurface(const QImage &sourceImage);
     GLuint GLID();
+
 private:
     OffscreenEngine *engine;
     QLabel *label;
